@@ -2,10 +2,10 @@ import css from './Home.module.css'
 
 export default function Home() {
     return (
-        <>
-        <section>
+        <main>
+        <section className={css.home_section}>
             <h1>Home page</h1>
         </section>
-        </>
+        </main>
     );
 }

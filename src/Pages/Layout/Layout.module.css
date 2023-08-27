@@ -1,0 +1,8 @@
+.nav__button {
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 10px;
+  background-color: green;
+  margin-bottom: 24px;
+  margin-right: 24px;
+}
