@@ -1,3 +1,4 @@
+
 import './App.css'
 
 export default App
@@ -5,10 +6,6 @@ export default App
 function App() {
 
     return (
-        <>
-            <div>
-
-            </div>
-        </>
+    <Routes></Routes>
     )
 }
