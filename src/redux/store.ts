@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { authPersistReduser } from "./auth/slice";
 import {
   persistStore,
   FLUSH,
@@ -11,7 +12,9 @@ import {
 } from "redux-persist";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    auth: authPersistReduser
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
