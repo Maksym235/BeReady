@@ -3,6 +3,8 @@ export type AuthStateType = {
     id: string;
     name: string;
     email: string;
+    theme: string;
+    lang: string;
   };
   isLoading: boolean;
   error: string | undefined;
