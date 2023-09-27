@@ -56,3 +56,27 @@ export const Current = createAsyncThunk("Auth/Current", async (_, ThunkAPI) => {
     ThunkAPI.rejectWithValue("failed");
   }
 });
+
+export const UpdateLang = createAsyncThunk(
+  "Auth/UpdateLang",
+  async (data: { id: string; lang: string }, ThunkAPI) => {
+    try {
+      const resp = await axios.patch("updateLang", data);
+      return resp.data;
+    } catch (error) {
+      ThunkAPI.rejectWithValue("failed");
+    }
+  }
+);
+
+export const UpdateTheme = createAsyncThunk(
+  "Auth/UpdateTheme",
+  async (data: { id: string; theme: string }, ThunkAPI) => {
+    try {
+      const resp = await axios.patch("updateTheme", data);
+      return resp.data;
+    } catch (error) {
+      ThunkAPI.rejectWithValue("failed");
+    }
+  }
+);
