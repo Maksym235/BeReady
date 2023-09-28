@@ -7,15 +7,18 @@ import Tours from "./Pages/Tours/Tours";
 import MyTours from "./Pages/MyTours/MyTours";
 import CreateTour from "./Pages/CreateTour/CreateTour";
 import { useEffect } from "react";
-import { useAppSelector } from "./redux/store";
+import { useAppDispatch, useAppSelector } from "./redux/store";
+import { Current } from "./redux/auth/operations";
 export default App;
-
 function App() {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   useEffect(() => {
     localStorage.setItem("lang", user ? user.lang : "ua");
     localStorage.setItem("theme", user ? user.theme : "light");
-  }, [user]);
+    document.documentElement.dataset.theme = user.theme ? user.theme : "light";
+    dispatch(Current());
+  }, [dispatch, user]);
 
   return (
     <Routes>

@@ -1,13 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RootState } from "../store";
+import { AuthStateType } from "../../Types/Auth";
 axios.defaults.baseURL = "https://beready-api-maksym235.vercel.app/auth/";
 const setToken = (token: string) => {
   axios.defaults.headers.common.Authorization = "Bearer " + token;
 };
 
-// const unsetToken = () => {
-//   axios.defaults.headers.common.Authorization = "";
-// };
+const unsetToken = () => {
+  axios.defaults.headers.common.Authorization = "";
+};
 
 export const Register = createAsyncThunk(
   "Auth/Register",
@@ -43,13 +45,25 @@ export const Logout = createAsyncThunk("Auth/Logout", async (_, ThunkAPI) => {
   try {
     const resp = await axios.post("logout");
     return resp;
+    unsetToken();
   } catch (error) {
     ThunkAPI.rejectWithValue("failed");
   }
 });
 
-export const Current = createAsyncThunk("Auth/Current", async (_, ThunkAPI) => {
+export const Current: any = createAsyncThunk<
+  AuthStateType,
+  string,
+  { state: RootState }
+>("Auth/Current", async (_, ThunkAPI: any) => {
+  const state = ThunkAPI.getState();
+  const persistedToken = state.auth.token;
+
+  if (persistedToken === null) {
+    return ThunkAPI.rejectWithValue("Unable to fetch user");
+  }
   try {
+    setToken(persistedToken);
     const resp = await axios.get("current");
     return resp.data;
   } catch (error) {
@@ -59,7 +73,7 @@ export const Current = createAsyncThunk("Auth/Current", async (_, ThunkAPI) => {
 
 export const UpdateLang = createAsyncThunk(
   "Auth/UpdateLang",
-  async (data: { id: string; lang: string }, ThunkAPI) => {
+  async (data: { email: string; lang: string }, ThunkAPI) => {
     try {
       const resp = await axios.patch("updateLang", data);
       return resp.data;
@@ -71,7 +85,7 @@ export const UpdateLang = createAsyncThunk(
 
 export const UpdateTheme = createAsyncThunk(
   "Auth/UpdateTheme",
-  async (data: { id: string; theme: string }, ThunkAPI) => {
+  async (data: { email: string; theme: string }, ThunkAPI) => {
     try {
       const resp = await axios.patch("updateTheme", data);
       return resp.data;
