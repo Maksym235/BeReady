@@ -13,16 +13,17 @@ export const Layout = () => {
     localStorage.setItem("lang", evt.currentTarget.value);
     dispatch(
       UpdateLang({
-        id: user.id,
+        email: user.email,
         lang: evt.currentTarget.value,
       })
     );
   };
   const handleChangeTheme = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+    document.documentElement.dataset.theme = evt.currentTarget.value;
     localStorage.setItem("theme", evt.currentTarget.value);
     dispatch(
       UpdateTheme({
-        id: user.id,
+        email: user.email,
         theme: evt.currentTarget.value,
       })
     );

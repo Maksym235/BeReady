@@ -93,12 +93,24 @@ export const AuthSlice = createSlice({
       .addCase(Current.rejected, (state, { error }) => {
         (state.isLoading = false), (state.error = error.message);
       })
-      .addCase(Current.fulfilled, (state, { payload: { email } }) => {
-        (state.isLoading = false),
-          (state.error = ""),
-          (state.user.email = email);
-        state.isLoggedIn = true;
-      })
+      .addCase(
+        Current.fulfilled,
+        (
+          state,
+          {
+            payload: {
+              user: { name, email },
+            },
+          }
+        ) => {
+          (state.isLoading = false),
+            (state.error = ""),
+            (state.user.name = name),
+            (state.user.email = email);
+          // state.token = token;
+          state.isLoggedIn = true;
+        }
+      )
       .addCase(UpdateLang.pending, (state) => {
         state.isLoading = true;
       })
