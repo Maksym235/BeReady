@@ -5,7 +5,6 @@ import { useAppDispatch } from "../../redux/store";
 import { UpdateLang, UpdateTheme } from "../../redux/auth/operations";
 import Nav from "../../components/Nav/Nav";
 
-
 export const Layout = () => {
   // ===========HEADER =================
   const dispatch = useAppDispatch();
@@ -35,19 +34,17 @@ export const Layout = () => {
       <header className={css.header}>
         {isLoggedIn && (
           <>
-            <select defaultValue="ua" onChange={handleChangeLang}>
-              <option selected>ua</option>
+            <select defaultValue={user.lang} onChange={handleChangeLang}>
+              <option>ua</option>
               <option>en</option>
             </select>
-            <select onChange={handleChangeTheme} defaultValue="light">
-              <option selected>light</option>
+            <select onChange={handleChangeTheme} defaultValue={user.theme}>
+              <option>light</option>
               <option>dark</option>
             </select>
           </>
         )}
-        <Nav/>
-        
-        
+        <Nav />
       </header>
       <Outlet />
     </>

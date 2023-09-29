@@ -14,8 +14,6 @@ function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   useEffect(() => {
-    localStorage.setItem("lang", user ? user.lang : "ua");
-    localStorage.setItem("theme", user ? user.theme : "light");
     document.documentElement.dataset.theme = user.theme ? user.theme : "light";
     dispatch(Current());
   }, [dispatch, user]);
