@@ -1,9 +1,10 @@
 import { Outlet } from "react-router";
-import { NavLink } from "react-router-dom";
 import css from "./Layout.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { useAppDispatch } from "../../redux/store";
 import { UpdateLang, UpdateTheme } from "../../redux/auth/operations";
+import Nav from "../../components/Nav/Nav";
+
 
 export const Layout = () => {
   // ===========HEADER =================
@@ -44,14 +45,9 @@ export const Layout = () => {
             </select>
           </>
         )}
-        <NavLink to="/home" className={css.nav__button}>
-          Home
-        </NavLink>
-        <NavLink to="/tours" className={css.nav__button}>
-          tours
-        </NavLink>
-        <br />
-        Header
+        <Nav/>
+        
+        
       </header>
       <Outlet />
     </>

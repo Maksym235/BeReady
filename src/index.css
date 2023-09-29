@@ -12,6 +12,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+:root {
+  --accent-color: #458ef7;
+  --text-color-main: #0d0d0d;
+  --text-color-grey: #cecece;
+}
 h1,
 h2,
 h3,
