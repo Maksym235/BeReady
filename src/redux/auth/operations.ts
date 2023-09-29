@@ -29,12 +29,7 @@ export const Login = createAsyncThunk(
   "Auth/Login",
   async (data: { email: string; password: string }, ThunkAPI) => {
     try {
-      const resp = await axios.post("login", data, {
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + window.localStorage.getItem("token"),
-        },
-      });
+      const resp = await axios.post("login", data);
       if (resp.status === 200) {
         setToken(resp.data.token);
       }

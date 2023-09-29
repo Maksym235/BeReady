@@ -62,6 +62,8 @@ export const AuthSlice = createSlice({
             theme: user.theme,
           });
         state.isLoggedIn = true;
+        localStorage.setItem("lang", user.language);
+        localStorage.setItem("theme", user.theme);
       })
       .addCase(Login.pending, (state) => {
         (state.isLoading = true), (state.error = "");
@@ -99,15 +101,19 @@ export const AuthSlice = createSlice({
           state,
           {
             payload: {
-              user: { name, email },
+              user: { name, email, theme, id, language },
+              token,
             },
           }
         ) => {
           (state.isLoading = false),
             (state.error = ""),
-            (state.user.name = name),
-            (state.user.email = email);
-          // state.token = token;
+            (state.user.name = name);
+          state.user.email = email;
+          state.user.theme = theme;
+          state.user.id = id;
+          state.user.lang = language;
+          state.token = token;
           state.isLoggedIn = true;
         }
       )
@@ -121,6 +127,7 @@ export const AuthSlice = createSlice({
       .addCase(UpdateLang.fulfilled, (state, { payload: { language } }) => {
         state.isLoading = false;
         state.user.lang = language;
+        localStorage.setItem("lang", language);
       })
       .addCase(UpdateTheme.pending, (state) => {
         state.isLoading = true;
@@ -132,6 +139,7 @@ export const AuthSlice = createSlice({
       .addCase(UpdateTheme.fulfilled, (state, { payload: { theme } }) => {
         state.isLoading = false;
         state.user.theme = theme;
+        localStorage.setItem("theme", theme);
       }),
 });
 
