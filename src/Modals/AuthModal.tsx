@@ -9,6 +9,7 @@ interface IProps {
 }
 export const AuthModal: FC<IProps> = ({ toggleModal }) => {
   const [currentAuthVariant, setCurrentAuthVariant] = useState("register");
+
   return createPortal(
     <div className={styles.backdrop}>
       <div className={styles.modal_window}>

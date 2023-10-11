@@ -35,6 +35,7 @@ export const RegisterForm: FC = () => {
       })
     );
     console.log(data);
+
   };
 
   return (

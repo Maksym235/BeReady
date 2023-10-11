@@ -6,7 +6,7 @@ import { langUa } from "../../Language/langUa";
 import { langEn } from "../../Language/langEn";
 import { useAuth } from "../../hooks/useAuth";
 export default function Home() {
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const lang = user.lang;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let language: any;
@@ -15,7 +15,10 @@ export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   useEffect(() => {
     axios.get("https://beready-api-maksym235.vercel.app/start");
-  }, []);
+    if (isLoggedIn) {
+      setIsOpenModal(false);
+    }
+  }, [isLoggedIn]);
   const toggleModal = () => {
     setIsOpenModal((state) => !state);
   };
@@ -29,3 +32,6 @@ export default function Home() {
     </main>
   );
 }
+//"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MjZkODFmMzRiNWZjYjgxNmEzNjNhYSIsImlhdCI6MTY5NzA0NDUxMiwiZXhwIjoxNjk3MTMwOTEyfQ.FK6DWMGY-Bbzg6Oomi-Tq56yePzKjt343n5zDcCW1mw"
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MjZkODFmMzRiNWZjYjgxNmEzNjNhYSIsImlhdCI6MTY5NzA0NDUxMiwiZXhwIjoxNjk3MTMwOTEyfQ.FK6DWMGY-Bbzg6Oomi-Tq56yePzKjt343n5zDcCW1mw

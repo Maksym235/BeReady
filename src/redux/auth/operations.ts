@@ -17,6 +17,16 @@ export const Register = createAsyncThunk(
     try {
       const resp = await axios.post("register", data);
       console.log(resp);
+      if (resp.data.message === "registered successfully") {
+        const loginResp = await axios.post("login", {
+          email: data.email,
+          password: data.password,
+        });
+        if (resp.status === 200) {
+          setToken(resp.data.token);
+        }
+        return loginResp.data
+      }
       return resp.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
