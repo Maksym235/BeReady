@@ -51,16 +51,17 @@ export const AuthSlice = createSlice({
           theme: "light",
         };
       })
-      .addCase(Register.fulfilled, (state, { payload: { user } }) => {
+      .addCase(Register.fulfilled, (state, { payload: { user, token } }) => {
         (state.isLoading = false),
           (state.error = ""),
           (state.user = {
             name: user.name,
             email: user.email,
-            id: "",
+            id: user.id ? user.id : "",
             lang: user.language,
             theme: user.theme,
           });
+        state.token = token ? token : "";
         state.isLoggedIn = true;
         localStorage.setItem("lang", user.language);
         localStorage.setItem("theme", user.theme);

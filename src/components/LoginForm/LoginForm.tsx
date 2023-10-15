@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,7 +10,7 @@ const schema = yup
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
-export const LoginForm: FC = () => {
+export const LoginForm = ({ toggleVariant }: any) => {
   const dispatch = useAppDispatch();
   const {
     register,
@@ -20,6 +19,9 @@ export const LoginForm: FC = () => {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
+  const resetPassword = () => {
+    toggleVariant("resetPassword");
+  };
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     dispatch(
@@ -45,6 +47,20 @@ export const LoginForm: FC = () => {
         <p>{errors.password?.message}</p>
         <input type="submit" />
       </form>
+      <>
+        <p style={{ color: "blue", cursor: "pointer" }} onClick={resetPassword}>
+          Reset password
+        </p>
+        <p>
+          Немає акаутна ?{" "}
+          <span
+            style={{ color: "blue", cursor: "pointer" }}
+            onClick={() => toggleVariant("register")}
+          >
+            Sign on
+          </span>
+        </p>
+      </>
     </div>
   );
 };
