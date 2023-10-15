@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -18,8 +17,7 @@ type FormData = yup.InferType<typeof schema>;
 //   email: string;
 //   password: string;
 // }
-
-export const RegisterForm: FC = () => {
+export const RegisterForm = ({ toggleVariant }: any) => {
   const dispatch = useAppDispatch();
   const {
     register,
@@ -35,7 +33,6 @@ export const RegisterForm: FC = () => {
       })
     );
     console.log(data);
-
   };
 
   return (
@@ -65,6 +62,15 @@ export const RegisterForm: FC = () => {
         />
         <p>{errors.password?.message}</p>
         <input type="submit" />
+        <p>
+          Вже є акаунт?{" "}
+          <span
+            onClick={() => toggleVariant("login")}
+            style={{ color: "blue", cursor: "pointer" }}
+          >
+            Sing in
+          </span>
+        </p>
       </form>
     </div>
   );
