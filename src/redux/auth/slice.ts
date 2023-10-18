@@ -7,6 +7,8 @@ import {
   Current,
   UpdateLang,
   UpdateTheme,
+  resetPassword,
+  setNewPassword,
 } from "./operations";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -28,12 +30,17 @@ const initialState: AuthStateType = {
   isLoading: false,
   isLoggedIn: false,
   isRefresing: false,
+  resetPasswordEmail: "",
 };
 
 export const AuthSlice = createSlice({
   name: "Auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setResetPassEmail: (state, { payload }) => {
+      state.resetPasswordEmail = payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(Register.pending, (state) => {
@@ -141,9 +148,30 @@ export const AuthSlice = createSlice({
         state.isLoading = false;
         state.user.theme = theme;
         localStorage.setItem("theme", theme);
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPassword.rejected, (state, { error }) => {
+        state.isLoading = false;
+        state.error = error.message;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(setNewPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(setNewPassword.rejected, (state, { error }) => {
+        state.isLoading = false;
+        state.error = error.message;
+      })
+      .addCase(setNewPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.resetPasswordEmail = "";
       }),
 });
-
+export const { setResetPassEmail } = AuthSlice.actions;
 export const authReduser = AuthSlice.reducer;
 
 export const authPersistReduser = persistReducer(persistConfig, authReduser);

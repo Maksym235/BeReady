@@ -1,7 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
+import { resetPassword } from "../../redux/auth/operations";
+import { setResetPassEmail } from "../../redux/auth/slice";
 
 const schema = yup
   .object({
@@ -11,7 +13,7 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 const ResetPassForm = ({ toggleVariant }: any) => {
-  //   const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -20,11 +22,8 @@ const ResetPassForm = ({ toggleVariant }: any) => {
     resolver: yupResolver(schema),
   });
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // dispatch(
-    //   Register({
-    //     ...data,
-    //   })
-    // );
+    dispatch(resetPassword({ ...data }));
+    dispatch(setResetPassEmail(data.email));
     toggleVariant("sendedMail");
     console.log(data);
   };

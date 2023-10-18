@@ -25,7 +25,7 @@ export const Register = createAsyncThunk(
         if (resp.status === 200) {
           setToken(resp.data.token);
         }
-        return loginResp.data
+        return loginResp.data;
       }
       return resp.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,6 +106,30 @@ export const UpdateTheme = createAsyncThunk(
       return resp.data;
     } catch (error) {
       ThunkAPI.rejectWithValue("failed");
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "Auth/resetPassword",
+  async (data: { email: string }, ThunkAPI) => {
+    try {
+      const resp = await axios.post("resetPassword", data);
+      return resp.data;
+    } catch (error) {
+      ThunkAPI.rejectWithValue("failed");
+    }
+  }
+);
+
+export const setNewPassword = createAsyncThunk(
+  "Auth/setNewPassword",
+  async (data: { email: string; password: string }, ThunkAPI) => {
+    try {
+      const resp = await axios.post("newpass", data);
+      return resp.data;
+    } catch (error) {
+      throw ThunkAPI.rejectWithValue("failed");
     }
   }
 );

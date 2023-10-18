@@ -11,4 +11,5 @@ export type AuthStateType = {
   token: string;
   isLoggedIn: boolean;
   isRefresing: boolean;
+  resetPasswordEmail: string;
 };
