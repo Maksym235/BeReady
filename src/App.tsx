@@ -1,14 +1,20 @@
-import { Routes, Route } from "react-router-dom";
-
 import "./App.css";
-import { Layout } from "./Pages/Layout/Layout";
-import Home from "./Pages/Home/Home";
-import Tours from "./Pages/Tours/Tours";
-import MyTours from "./Pages/MyTours/MyTours";
-import CreateTour from "./Pages/CreateTour/CreateTour";
-import { useEffect } from "react";
+//-------------------------------------------------------------
+import { lazy, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+//-------------------------------------------------------------
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { Current } from "./redux/auth/operations";
+//-------------------------------------------------------------
+import { Layout } from "./Pages/Layout/Layout";
+const HomePage = lazy(() => import("./Pages/Home/Home"));
+const ToursPage = lazy(() => import("./Pages/Tours/Tours"));
+const MyToursPage = lazy(() => import("./Pages/MyTours/MyTours"));
+const CreateTourPage = lazy(() => import("./Pages/CreateTour/CreateTour"));
+const ResetPasswordPage = lazy(
+  () => import("./Pages/ResetPassword/ResetPassword")
+);
+
 export default App;
 function App() {
   const dispatch = useAppDispatch();
@@ -21,12 +27,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="tours" element={<Tours />}>
-          <Route path="create-tour" element={<CreateTour />} />
-          <Route path="my-tours" element={<MyTours />} />
+        <Route index element={<HomePage />} />
+        <Route path="tours" element={<ToursPage />}>
+          <Route path="create-tour" element={<CreateTourPage />} />
+          <Route path="my-tours" element={<MyToursPage />} />
         </Route>
-        <Route path="*" element={<Home />} />
+        <Route path="/resetPassword/:id" element={<ResetPasswordPage />} />
+        <Route path="*" element={<HomePage />} />
       </Route>
     </Routes>
   );

@@ -32,6 +32,3 @@ export default function Home() {
     </main>
   );
 }
-//"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MjZkODFmMzRiNWZjYjgxNmEzNjNhYSIsImlhdCI6MTY5NzA0NDUxMiwiZXhwIjoxNjk3MTMwOTEyfQ.FK6DWMGY-Bbzg6Oomi-Tq56yePzKjt343n5zDcCW1mw"
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MjZkODFmMzRiNWZjYjgxNmEzNjNhYSIsImlhdCI6MTY5NzA0NDUxMiwiZXhwIjoxNjk3MTMwOTEyfQ.FK6DWMGY-Bbzg6Oomi-Tq56yePzKjt343n5zDcCW1mw
